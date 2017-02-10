@@ -24,8 +24,7 @@ a customer error page or reload of the same page. You can set the Session then c
  * Method of communication between two devices over a network
  * Is a software system for interoperable machine to machine communication
  * Is a collection of standards or protocols for exchanging information between 2 devices or applications
-
-A web-service works on the client/server model paradigm in the sence a client application can access the service over the internet programmatically (e.g. client programs, shell scripts) that call the service providing a URL and a particular method call, together this single address parameter is called an url endpoint (e.g. http://MyWebService/MyMethod). Also a webservice is stateless meaning there are no user sessions like in a web-application.
+ * A web-service works on the client/server model paradigm in the sence a client application can access the service over the internet programmatically (e.g. client programs, shell scripts) that call the service providing a URL and a particular method call, together this single address parameter is called an url endpoint (e.g. http://MyWebService/MyMethod). Also a webservice is stateless meaning there are no user sessions like in a web-application.
 
 2. Advantages of a Web Service?
 #### Interoperability:
@@ -33,17 +32,33 @@ Accessible over a network and runs on either HTTP or SOAP protocols and uses xml
 #### Reusability
 Any application whether web, desktop or mobile, it doesn't matter who or how many, can access the same web-service at the same time, in other words it provides a common platform for all clients.
 #### Loose Coupling:
-As mentioned above Client code is totally independent with Server code. In other words I can create a service in .NET and a Java or PHP client application just as much as .net client can access it.
+As mentioned above Client code is totally independent with Server code. So a web service is a language independent way of communication or in other words I can create a service in .NET and a Java or PHP client application just as much as .net client can access it. 
 #### Easy Deployment
-Same as a web application all you need is IIS or equivalent to host your service
+Same as a web application all you need is IIS or equivalent to host your service however 
 #### Multiple Versions
 Can be running at the same time. Note multiple versions in this sense means it could be a new service with the exact same endpoints (methods) or additional overloads or methods. With this you have to take into consideration are you bug fixing for all clients or would a new method with a different outcome for a different client suffice or as a convention create a whole new service as more than one method will be changing.
 
 3. What are different types of Web Services?
-There are two types of web services 1 that uses a specific protocol (protocol meaning how it is packaged when sent across the internet) and 1 that is 
+<br />There are two types of web services
 
  * SOAP: Runs on SOAP Protocol and uses XML for transition of data	
- * Restful: 
+ * Restful: Is an architectural style (by that I mean it can be configured to use different protocols and different message formats)
+
+### SOAP vs REST Web Services
+
+<table>
+<tr><th>S.No</th><th>SOAP</th><th>REST</th></tr>
+<tr><td>1</td><td>SOAP is a protocol.</td><td>REST is an architectural style.</td></tr>
+<tr><td>2</td><td>SOAP stands for Simple Object Access Protocol.</td><td>REST stands for REpresentational State Transfer.</td></tr>
+<tr><td>3</td><td>SOAP can't use REST because it is a protocol.</td><td>REST can use SOAP web services because it is a concept and can use any protocol like HTTP, SOAP.</td></tr>
+<tr><td>4</td><td>SOAP uses services interfaces to expose the business logic.</td><td>REST uses URI to expose business logic.</td></tr>
+<tr><td>5</td><td>SOAP defines standards to be strictly followed.</td><td>REST does not define too much standards like SOAP.</td></tr>
+<tr><td>6</td><td>SOAP defines standards to be strictly followed.</td><td>REST does not define too much standards like SOAP.</td></tr>
+<tr><td>7</td><td>SOAP requires more bandwidth and resource than REST.</td><td>REST requires less bandwidth and resource than SOAP.</td></tr>
+<tr><td>8</td><td>SOAP defines its own security.</td><td>RESTful web services inherits security measures from the underlying transport.</td></tr>
+<tr><td>9</td><td>SOAP permits XML data format only.</td><td>REST permits different data format such as Plain text, HTML, XML, JSON etc.</td></tr>
+<tr><td>10</td><td>SOAP is less preferred than REST.</td><td>REST more preferred than SOAP.</td><tr>
+</table>
 
 ### SQL
 1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship
