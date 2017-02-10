@@ -42,24 +42,23 @@ Same as a web application all you need is IIS or equivalent to host your service
  * SOAP: Runs on SOAP Protocol and uses XML for transition of data	
  * Restful: Is an architectural style (by that I mean it can be configured to use different protocols and different message formats)
 
-### SOAP vs REST Web Services
+ ### SOAP vs REST Web Services
 
-<table>
-<tr><th>S.No</th><th>SOAP</th><th>REST</th></tr>
-
-<tr><td>1</td><td>SOAP is a protocol.</td><td>REST is an architectural style.</td></tr>
-<tr><td>2</td><td>SOAP stands for Simple Object Access Protocol.</td><td>REST stands for REpresentational State Transfer.</td></tr>
-<tr><td>3</td><td>SOAP can't use REST because it is a protocol.</td><td>REST can use SOAP web services because it is a concept and can use any protocol like HTTP, SOAP.</td></tr>
-<tr><td>4</td><td>SOAP uses services interfaces to expose the business logic.</td><td>REST uses URI to expose business logic.</td></tr>
-<tr><td>5</td><td>SOAP defines standards to be strictly followed.</td><td>REST does not define too much standards like SOAP.</td></tr>
-<tr><td>6</td><td>SOAP defines standards to be strictly followed.</td><td>REST does not define too much standards like SOAP.</td></tr>
-<tr><td>7</td><td>SOAP requires more bandwidth and resource than REST.</td><td>REST requires less bandwidth and resource than SOAP.</td></tr>
-<tr><td>8</td><td>SOAP defines its own security.</td><td>RESTful web services inherits security measures from the underlying transport.</td></tr>
-<tr><td>9</td><td>SOAP permits XML data format only.</td><td>REST permits different data format such as Plain text, HTML, XML, JSON etc.</td></tr>
-<tr><td>10</td><td>SOAP is less preferred than REST.</td><td>REST more preferred than SOAP.</td><tr>
-</table>
+ | S.No | SOAP | REST |
+ | --- | --- | --- |
+ | 1 | SOAP is a protocol. | REST is an architectural style. |
+ | 2 | SOAP stands for Simple Object Access Protocol. | REST stands for REpresentational State Transfer. |
+ | 3 | SOAP can't use REST because it is a protocol. | REST can use SOAP web services because it is a concept and can use any protocol like HTTP, SOAP. |
+ | 4 | SOAP uses services interfaces to expose the business logic. | REST uses URI to expose business logic. |
+ | 5 | SOAP defines standards to be strictly followed. | REST does not define too much standards like SOAP. |
+ | 6 | SOAP defines standards to be strictly followed. | REST does not define too much standards like SOAP. |
+ | 7 | SOAP requires more bandwidth and resource than REST. | REST requires less bandwidth and resource than SOAP. |
+ | 8 | SOAP defines its own security. | RESTful web services inherits security measures from the underlying transport. |
+ | 9 | SOAP permits XML data format only. | REST permits different data format such as Plain text, HTML, XML, JSON etc. |
+ | 10 | SOAP is less preferred than REST. | REST more preferred than SOAP. |
 
 ### SQL
+
 1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship?
  There is more than 1 answer however performance is paramount
  
@@ -88,19 +87,19 @@ Same as a web application all you need is IIS or equivalent to host your service
 
  There are actually 2 good answers to this question the first is to use an old technique but a good one called recursion and this can be achieved in T-SQL using a common table expression (CTE), in order to order the data in a tree like organisation chart structure you can use another techiniue in your recursion process to append the child employeeid to the its manager's NodeID and use a separator character between to distinguish hierachy and thus you get a path from the bottom to the top of the tree. The second answer is thanks to a new datatype in SQL2008 hierarchyid which I will explain only briefly solves the problem of the first solution being somewhat complicated. The full explanation of how the hierachyid works is left as an exercise for the reader to research.
 
-### Solution 1 - recursion thru CTE
+ ### Solution 1 - recursion thru CTE
 
-Data
+ Data
 
-| EmployeeID | LoginID | ManagerID | Title |
-| --- | --- | --- | --- |
-| 1 | Donald Trump | NULL | President |
-| 2 | Mike Pencetille | 1 | Vice President |
-| 3 | Jared Kushner | 1 | Senior Advisor |
-| 4 | Ivanka Kushner | 3 | Wife of Senior Advisor and daughter of Presiodent |
-| 5 | VP Helper | 2 | Helper to Vice President |
+ | EmployeeID | LoginID | ManagerID | Title |
+ | --- | --- | --- | --- |
+ | 1 | Donald Trump | NULL | President |
+ | 2 | Mike Pencetille | 1 | Vice President |
+ | 3 | Jared Kushner | 1 | Senior Advisor |
+ | 4 | Ivanka Kushner | 3 | Wife of Senior Advisor and daughter of Presiodent |
+ | 5 | VP Helper | 2 | Helper to Vice President |
 
-```
+ ```
 WITH Employee AS (
 	SELECT 1 AS [EmployeeID]
       ,CAST(N'Donald Trump' AS NVARCHAR(256)) AS LoginID
@@ -159,10 +158,10 @@ WITH Employee AS (
 SELECT *
 FROM EmployeeList
 ORDER BY Node
-```
+ ```
 
-Now, the first section of the CTE is just metadata for setting up sample data for the Employee table.
-Second section is made up of 2 parts, the first part called the anchor is getting the Boss (top dog, the one that has no boss i.e. President Trump). Second part is calling the rest of the employees and is a union of the inner join of the Employee and the named CTE section itself thus causing a recursion effect onto itself. Note I have also included the hierarchical level and the tree NodeID which gives us the hierachical tree path for any employee which in a sence its orgchart management structure and I can sought on this NodeID to get the data into the format I want.
+ Now, the first section of the CTE is just metadata for setting up sample data for the Employee table.
+ Second section is made up of 2 parts, the first part called the anchor is getting the Boss (top dog, the one that has no boss i.e. President Trump). Second part is calling the rest of the employees and is a union of the inner join of the Employee and the named CTE section itself thus causing a recursion effect onto itself. Note I have also included the hierarchical level and the tree NodeID which gives us the hierachical tree path for any employee which in a sence its orgchart management structure and I can sought on this NodeID to get the data into the format I want.
 
-### Solution 2 - hierachyid data type
-The hierachyid was introduce for this very reason in that we don't have to write a recursion query anymore and we can achieve the same result. Instead of computing values recursively the type uses function method calls which is hard at first to understand without first having an understanding of programming concepts and actually seeing the t-sql code in practice, so you can depict a hierarchyid value as rather than a single value but a reference to a class that contains the value as binary and a function is used to retrieve the value in human readable form much the same as the NodeID in the previous solution. Without going into more details the reader can research the hierachyid data-type online just to note there are both static and class methods calls that enable inserting and querying data. Also it is possible to convert a table in the form used in solution 1 to that of solution 2 again search online for for information on MSDN.
+ ### Solution 2 - hierachyid data type
+ The hierachyid was introduce for this very reason in that we don't have to write a recursion query anymore and we can achieve the same result. Instead of computing values recursively the type uses function method calls which is hard at first to understand without first having an understanding of programming concepts and actually seeing the t-sql code in practice, so you can depict a hierarchyid value as rather than a single value but a reference to a class that contains the value as binary and a function is used to retrieve the value in human readable form much the same as the NodeID in the previous solution. Without going into more details the reader can research the hierachyid data-type online just to note there are both static and class methods calls that enable inserting and querying data. Also it is possible to convert a table in the form used in solution 1 to that of solution 2 again search online for for information on MSDN.
