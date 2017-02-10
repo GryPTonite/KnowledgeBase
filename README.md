@@ -8,12 +8,13 @@ My knowledge base of Technical Interview Questions
  * Alternatively you could go one step further depending how much data needs to retrieved and whether it is more effecient to load a single row only, then in your Edit page assuming the table has an ID key field you could collect an array of ID's of those rows beeing updated as in Application["P" + ID.ToString()] = true, then your code block in your View page can loop thru this array to create a filter on all ID's so only retrieve the records that have been changed; then I suggest rather than setting to false remove all the ID's from the application varible collection.
 
 2. How do you handle a database deadlock in big set of running tests?
-<br />Use a Timeout locking method so it at least releases one of calls there it can still fail the test but importanlty log the method name in the message it occurred in; there you can investigate the particular database call causing the problem, perhaps you could reorder that particular test to avoid a future lock to see if the problem disappears, then you can safely assume it is a just purely a consequence of you testing as supposed to a production error</p>
+<br />Use a Timeout locking method so it at least releases one of calls there it can still fail the test but importanlty log the method name in the message it occurred in; there you can investigate the particular database call causing the problem, perhaps you could reorder that particular test to avoid a future lock to see if the problem disappears, then you can safely assume it is a just purely a consequence of you testing as supposed to a production error
 
 3. Global handling of unhandled errors server side code?
-<br /> raised in the Global.asax file which you can intercept and further
+<br />Raised in the Global.asax file which you can intercept and further
 Use Server.GetLastError to get the HttpExcpetion, there you add logging and/or set a session flag so you can read in a 
-a customer error page or reload of the same page. You can set the Session then call Server.ClearError to clear last error and istop .net from clearing the new session
+a customer error page or reload of the same page. You can set the Session then call Server.ClearError to clear the last error and consequently stop .net from clearing the new session
+
 4. Javascript handling of errors say in an ajax call?
 <br />There is no specific event client side so you have to handle your exceptions in every function however returning code from the server in an ajax call you can make use of callback onerror event handler to notify the user.
 
@@ -23,7 +24,8 @@ a customer error page or reload of the same page. You can set the Session then c
  * Method of communication between two devices over a network
  * Is a software system for interoperable machine to machine communication
  * Is a collection of standards or protocols for exchanging information between 2 devices or applications
-A web-service works on the client/server model paradigm in the sence a client application can access the service over the internet programmatically, e.g. client programs, shell scripts, calling the service providing a URL and a particular method call, together this single parameter is called an url endpoint e.g. http://MyWebService/MyMethod. Also a webservice is stateless meaning there are no user sessions like in a web-application.
+
+A web-service works on the client/server model paradigm in the sence a client application can access the service over the internet programmatically (e.g. client programs, shell scripts) that call the service providing a URL and a particular method call, together this single address parameter is called an url endpoint (e.g. http://MyWebService/MyMethod). Also a webservice is stateless meaning there are no user sessions like in a web-application.
 
 2. Advantages of a Web Service?
 #### Interoperability:
