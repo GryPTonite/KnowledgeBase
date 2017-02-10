@@ -10,7 +10,7 @@ My knowledge base of Technical Interview Questions
 2. Handle a database deadlock in big set of running tests:
 Use a Timeout locking method so it at least releases one of calls then it can log a message the method it occurred in (e.g. ); which as soon as there is a deadlock stop and throw an error) there you trap the error and can pin down the particular database call causing the problem, perhaps you could reorder that particular test to avoid a future lock to see if the problem disappears, then you can safely assume it is a just purely a consequence of you testing as supposed to a production error
 3. Global handling of unhandled errors server side code:
-tError raised in the Global.asax file which you can intercept and further
+Error raised in the Global.asax file which you can intercept and further
 Use Server.GetLastError to get the HttpExcpetion, there you add logging and/or set a session flag so you can read in a 
 a customer error page or reload of the same page. You can set the Session then call Server.ClearError to clear last error and stop .net from clearing the new session
 4. Javascript handling of errors say in an ajax call:
