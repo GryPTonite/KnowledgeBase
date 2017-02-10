@@ -24,17 +24,17 @@ a customer error page or reload of the same page. You can set the Session then c
  * Method of communication between two devices over a network
  * Is a software system for interoperable machine to machine communication
  * Is a collection of standards or protocols for exchanging information between 2 devices or applications
- * A web-service works on the client/server model paradigm in the sence a client application can access the service over the internet programmatically (e.g. client programs, shell scripts) that call the service providing a URL and a particular method call, together this single address parameter is called an url endpoint (e.g. http://MyWebService/MyMethod). Also a webservice is stateless meaning there are no user sessions like in a web-application.
+ * A web-service works on the client/server model paradigm in the sence a client application can access the service over the internet programmatically (e.g. client programs, shell scripts) that call the service providing a URL and a particular method call, together this single address parameter is called an url endpoint (e.g. http://MyWebService/MyMethod). Also a webservice is stateless meaning there are no user sessions like in a web-application
 
 2. Advantages of a Web Service?
-#### Interoperability:
+#### Interoperability
 Accessible over a network and runs on either HTTP or SOAP protocols and uses xml or json format in transition over the internet so the client must be able to process these formats and hence the server or client can be developed in any language.
 #### Reusability
 Any application whether web, desktop or mobile, it doesn't matter who or how many, can access the same web-service at the same time, in other words it provides a common platform for all clients.
-#### Loose Coupling:
+#### Loose Coupling
 As mentioned above Client code is totally independent with Server code. So a web service is a language independent way of communication or in other words I can create a service in .NET and a Java or PHP client application just as much as .net client can access it. 
 #### Easy Deployment
-Same as a web application all you need is IIS or equivalent to host your service however 
+Same as a web application all you need is IIS or equivalent to host your service however, a Restful
 #### Multiple Versions
 Can be running at the same time. Note multiple versions in this sense means it could be a new service with the exact same endpoints (methods) or additional overloads or methods. With this you have to take into consideration are you bug fixing for all clients or would a new method with a different outcome for a different client suffice or as a convention create a whole new service as more than one method will be changing.
 
@@ -48,6 +48,7 @@ Can be running at the same time. Note multiple versions in this sense means it c
 
 <table>
 <tr><th>S.No</th><th>SOAP</th><th>REST</th></tr>
+
 <tr><td>1</td><td>SOAP is a protocol.</td><td>REST is an architectural style.</td></tr>
 <tr><td>2</td><td>SOAP stands for Simple Object Access Protocol.</td><td>REST stands for REpresentational State Transfer.</td></tr>
 <tr><td>3</td><td>SOAP can't use REST because it is a protocol.</td><td>REST can use SOAP web services because it is a concept and can use any protocol like HTTP, SOAP.</td></tr>
@@ -61,7 +62,11 @@ Can be running at the same time. Note multiple versions in this sense means it c
 </table>
 
 ### SQL
+<ol>
+<ul>ABC</ul>
+</ol>
 1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship?
+
 #### Option 1 - BAD
 ```
 SELECT m.*
@@ -83,7 +88,7 @@ WHERE c.MasterID IS NULL
 ```
 Here by using a join between the two tables the process is aligant and most effecient - we can assume (best practice is the ID column is the primary key and thus the clustered index) that both tables are pre-ordered, so then the first action is to just sort the child table by Master ID and only have distinct values, so then all the process requires is one traverse of the master and child tables together as supposed to many look-ups into the child table that the first solution would do.
 
-2. One of my now new favourite SQL questions is how do you write a query to display a list of employees and their immediate manager. A typical example is the Employee/Manager scenario where the Employee table has a ManagerID column and a manager is also an employee and you want to specifically show the Manager's name in your query not just the ID and group employees by organisation structure.
+  2. One of my now new favourite SQL questions is how do you write a query to display a list of employees and their immediate manager. A typical example is the Employee/Manager scenario where the Employee table has a ManagerID column and a manager is also an employee and you want to specifically show the Manager's name in your query not just the ID and group employees by organisation structure.
 
 There are actually 2 good answers to this question the first is to use an old technique but a good one called recursion and this can be achieved in T-SQL using a common table expression (CTE), in order to order the data in a tree like organisation chart structure you can use another techiniue in your recursion process to append the child employeeid to the its manager's NodeID and use a separator character between to distinguish hierachy and thus you get a path from the bottom to the top of the tree. The second answer is thanks to a new datatype in SQL2008 hierarchyid which I will explain only briefly solves the problem of the first solution being somewhat complicated. The full explanation of how the hierachyid works is left as an exercise for the reader to research.
 
