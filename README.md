@@ -8,15 +8,13 @@ My knowledge base of Technical Interview Questions
  * Alternatively you could go one step further depending how much data needs to retrieved and whether it is more effecient to load a single row only, then in your Edit page assuming the table has an ID key field you could collect an array of ID's of those rows beeing updated as in Application["P" + ID.ToString()] = true, then your code block in your View page can loop thru this array to create a filter on all ID's so only retrieve the records that have been changed; then I suggest rather than setting to false remove all the ID's from the application varible collection.
 
 2. How do you handle a database deadlock in big set of running tests?
-<br />Use a Timeout locking method so it at least releases one of calls there it can still fail the test but importanlty log the method name in the message it occurred in; there you can investigate the particular database call causing the problem, perhaps you could reorder that particular test to avoid a future lock to see if the problem disappears, then you can safely assume it is a just purely a consequence of you testing as supposed to a production error
+ Use a Timeout locking method so it at least releases one of calls there it can still fail the test but importanlty log the method name in the message it occurred in; there you can investigate the particular database call causing the problem, perhaps you could reorder that particular test to avoid a future lock to see if the problem disappears, then you can safely assume it is a just purely a consequence of you testing as supposed to a production error
 
 3. Global handling of unhandled errors server side code?
-<br />Raised in the Global.asax file which you can intercept and further
-Use Server.GetLastError to get the HttpExcpetion, there you add logging and/or set a session flag so you can read in a 
-a customer error page or reload of the same page. You can set the Session then call Server.ClearError to clear the last error and consequently stop .net from clearing the new session
+ Raised in the Global.asax file which you can intercept and further Use Server.GetLastError to get the HttpExcpetion, there you add logging and/or set a session flag so you can read in a customer error page or reload of the same page. You can set the Session then call Server.ClearError to clear the last error and consequently will stop .net from clearing the new session
 
 4. Javascript handling of errors say in an ajax call?
-<br />There is no specific event client side so you have to handle your exceptions in every function however returning code from the server in an ajax call you can make use of callback onerror event handler to notify the user.
+ There is no specific event client side so you have to handle your exceptions in every function however returning code from the server in an ajax call you can make use of callback onerror event handler to notify the user.
 
 ### Web Services
 1. What is a web service?
@@ -34,12 +32,12 @@ Any application whether web, desktop or mobile, it doesn't matter who or how man
 #### Loose Coupling
 As mentioned above Client code is totally independent with Server code. So a web service is a language independent way of communication or in other words I can create a service in .NET and a Java or PHP client application just as much as .net client can access it. 
 #### Easy Deployment
-Same as a web application all you need is IIS or equivalent to host your service however, a Restful
+Same as a web application all you need is IIS or equivalent to host your service however, a Restful Web API can be hosted in other host severs
 #### Multiple Versions
-Can be running at the same time. Note multiple versions in this sense means it could be a new service with the exact same endpoints (methods) or additional overloads or methods. With this you have to take into consideration are you bug fixing for all clients or would a new method with a different outcome for a different client suffice or as a convention create a whole new service as more than one method will be changing.
+ Can be running at the same time. Note multiple versions in this sense means it could be a new service with the exact same endpoints (methods) or additional overloads or methods. With this you have to take into consideration are you bug fixing for all clients or would a new method with a different outcome for a different client suffice or as a convention create a whole new service as more than one method will be changing.
 
 3. What are different types of Web Services?
-<br />There are two types of web services
+ There are two types of web services
 
  * SOAP: Runs on SOAP Protocol and uses XML for transition of data	
  * Restful: Is an architectural style (by that I mean it can be configured to use different protocols and different message formats)
@@ -63,31 +61,32 @@ Can be running at the same time. Note multiple versions in this sense means it c
 
 ### SQL
 1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship?
+ There is more than 1 answer however performance is paramount
+ 
+ #### Option 1 - BAD
+ ```
+ SELECT m.*
+ FROM MasterTable m
+ WHERE ID NOT IN (SELECT c.MasterID FROM ChildTable c)
+ ```
 
-#### Option 1 - BAD
-```
-SELECT m.*
-FROM MasterTable m
-WHERE ID NOT IN (SELECT c.MasterID FROM ChildTable c)
-```
+ Why is the above SQL wrong?
+ Well, the query will actually give you the correct result however; it is probably the least effecient answer.
+ For every row in the master table it has to go through the same process of traversing through the entire Child table to see if there is a match, which will be a long process especially if the ChildTable is huge.
 
-Why is the above SQL wrong?
-Well, the query will actually give you the correct result however; it is probably the least effecient answer.
-For every row in the master table it has to go through the same process of traversing through the entire Child table to see if there is a match, which will be a long process especially if the ChildTable is huge.
+ #### Option 2 - GOOD
+ ```
+ SELECT m.*
+ FROM MasterTable m
+ LEFT OUTER JOIN ChildTable c
+   ON m.ID = c.MasterID
+ WHERE c.MasterID IS NULL
+ ```
+ Here by using a join between the two tables the process is aligant and most effecient - we can assume (best practice is the ID column is the primary key and thus the clustered index) that both tables are pre-ordered, so then the first action is to just sort the child table by Master ID and only have distinct values, so then all the process requires is one traverse of the master and child tables together as supposed to many look-ups into the child table that the first solution would do.
 
-#### Option 2 - GOOD
-```
-SELECT m.*
-FROM MasterTable m
-LEFT OUTER JOIN ChildTable c
-  ON m.ID = c.MasterID
-WHERE c.MasterID IS NULL
-```
-Here by using a join between the two tables the process is aligant and most effecient - we can assume (best practice is the ID column is the primary key and thus the clustered index) that both tables are pre-ordered, so then the first action is to just sort the child table by Master ID and only have distinct values, so then all the process requires is one traverse of the master and child tables together as supposed to many look-ups into the child table that the first solution would do.
+2. One of my now new favourite SQL questions is how do you write a query to display a list of employees and their immediate manager. A typical example is the Employee/Manager scenario where the Employee table has a ManagerID column and a manager is also an employee and you want to specifically show the Manager's name in your query not just the ID and group employees by organisation structure.
 
-  2. One of my now new favourite SQL questions is how do you write a query to display a list of employees and their immediate manager. A typical example is the Employee/Manager scenario where the Employee table has a ManagerID column and a manager is also an employee and you want to specifically show the Manager's name in your query not just the ID and group employees by organisation structure.
-
-There are actually 2 good answers to this question the first is to use an old technique but a good one called recursion and this can be achieved in T-SQL using a common table expression (CTE), in order to order the data in a tree like organisation chart structure you can use another techiniue in your recursion process to append the child employeeid to the its manager's NodeID and use a separator character between to distinguish hierachy and thus you get a path from the bottom to the top of the tree. The second answer is thanks to a new datatype in SQL2008 hierarchyid which I will explain only briefly solves the problem of the first solution being somewhat complicated. The full explanation of how the hierachyid works is left as an exercise for the reader to research.
+ There are actually 2 good answers to this question the first is to use an old technique but a good one called recursion and this can be achieved in T-SQL using a common table expression (CTE), in order to order the data in a tree like organisation chart structure you can use another techiniue in your recursion process to append the child employeeid to the its manager's NodeID and use a separator character between to distinguish hierachy and thus you get a path from the bottom to the top of the tree. The second answer is thanks to a new datatype in SQL2008 hierarchyid which I will explain only briefly solves the problem of the first solution being somewhat complicated. The full explanation of how the hierachyid works is left as an exercise for the reader to research.
 
 ### Solution 1 - recursion thru CTE
 
