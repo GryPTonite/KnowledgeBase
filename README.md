@@ -61,9 +61,8 @@ Can be running at the same time. Note multiple versions in this sense means it c
 </table>
 
 ### SQL
-1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship
-
-Option 1 - BAD
+1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship?
+#### Option 1 - BAD
 ```
 SELECT m.*
 FROM MasterTable m
@@ -74,8 +73,8 @@ Why is the above SQL wrong?
 Well, the query will actually give you the correct result however; it is probably the least effecient answer.
 For every row in the master table it has to go through the same process of traversing through the entire Child table to see if there is a match, which will be a long process especially if the ChildTable is huge.
 
-Option 2 - GOOD
- ```
+#### Option 2 - GOOD
+```
 SELECT m.*
 FROM MasterTable m
 LEFT OUTER JOIN ChildTable c
