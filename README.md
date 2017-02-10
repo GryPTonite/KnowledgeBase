@@ -8,12 +8,15 @@ My knowledge base of Technical Interview Questions
  * Alternatively you could go one step further depending how much data needs to retrieved and whether it is more effecient to load a single row only, then in your Edit page assuming the table has an ID key field you could collect an array of ID's of those rows beeing updated as in Application["P" + ID.ToString()] = true, then your code block in your View page can loop thru this array to create a filter on all ID's so only retrieve the records that have been changed; then I suggest rather than setting to false remove all the ID's from the application varible collection.
 
 2. How do you handle a database deadlock in big set of running tests?
+
  Use a Timeout locking method so it at least releases one of calls there it can still fail the test but importanlty log the method name in the message it occurred in; there you can investigate the particular database call causing the problem, perhaps you could reorder that particular test to avoid a future lock to see if the problem disappears, then you can safely assume it is a just purely a consequence of you testing as supposed to a production error
 
 3. Global handling of unhandled errors server side code?
+
  Raised in the Global.asax file which you can intercept and further Use Server.GetLastError to get the HttpExcpetion, there you add logging and/or set a session flag so you can read in a customer error page or reload of the same page. You can set the Session then call Server.ClearError to clear the last error and consequently will stop .net from clearing the new session
 
 4. Javascript handling of errors say in an ajax call?
+
  There is no specific event client side so you have to handle your exceptions in every function however returning code from the server in an ajax call you can make use of callback onerror event handler to notify the user.
 
 ### Web Services
@@ -25,18 +28,20 @@ My knowledge base of Technical Interview Questions
  * A web-service works on the client/server model paradigm in the sence a client application can access the service over the internet programmatically (e.g. client programs, shell scripts) that call the service providing a URL and a particular method call, together this single address parameter is called an url endpoint (e.g. http://MyWebService/MyMethod). Also a webservice is stateless meaning there are no user sessions like in a web-application
 
 2. Advantages of a Web Service?
-#### Interoperability
-Accessible over a network and runs on either HTTP or SOAP protocols and uses xml or json format in transition over the internet so the client must be able to process these formats and hence the server or client can be developed in any language.
-#### Reusability
-Any application whether web, desktop or mobile, it doesn't matter who or how many, can access the same web-service at the same time, in other words it provides a common platform for all clients.
-#### Loose Coupling
-As mentioned above Client code is totally independent with Server code. So a web service is a language independent way of communication or in other words I can create a service in .NET and a Java or PHP client application just as much as .net client can access it. 
-#### Easy Deployment
-Same as a web application all you need is IIS or equivalent to host your service however, a Restful Web API can be hosted in other host severs
-#### Multiple Versions
+
+ #### Interoperability
+ Accessible over a network and runs on either HTTP or SOAP protocols and uses xml or json format in transition over the internet so the client must be able to process these formats and hence the server or client can be developed in any language.
+ #### Reusability
+ Any application whether web, desktop or mobile, it doesn't matter who or how many, can access the same web-service at the same time, in other words it provides a common platform for all clients.
+ #### Loose Coupling
+ As mentioned above Client code is totally independent with Server code. So a web service is a language independent way of communication or in other words I can create a service in .NET and a Java or PHP client application just as much as .net client can access it. 
+ #### Easy Deployment
+ Same as a web application all you need is IIS or equivalent to host your service however, a Restful Web API can be hosted in other host severs
+ #### Multiple Versions
  Can be running at the same time. Note multiple versions in this sense means it could be a new service with the exact same endpoints (methods) or additional overloads or methods. With this you have to take into consideration are you bug fixing for all clients or would a new method with a different outcome for a different client suffice or as a convention create a whole new service as more than one method will be changing.
 
 3. What are different types of Web Services?
+
  There are two types of web services
 
  * SOAP: Runs on SOAP Protocol and uses XML for transition of data	
@@ -60,6 +65,7 @@ Same as a web application all you need is IIS or equivalent to host your service
 ### SQL
 
 1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship?
+ 
  There is more than 1 answer however performance is paramount
  
  #### Option 1 - BAD
