@@ -62,9 +62,6 @@ Can be running at the same time. Note multiple versions in this sense means it c
 </table>
 
 ### SQL
-<ol>
-<ul>ABC</ul>
-</ol>
 1. Joining on non mandatory master/child 1 to many relationship tables to display only rows where there is no child relationship?
 
 #### Option 1 - BAD
