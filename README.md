@@ -36,7 +36,7 @@ My knowledge base of Technical Interview Questions
  #### Loose Coupling
  As mentioned above Client code is totally independent with Server code. So a web service is a language independent way of communication or in other words I can create a service in .NET and a Java or PHP client application just as much as .net client can access it. 
  #### Easy Deployment
- Same as a web application all you need is IIS or equivalent to host your service however, a Restful Web API can be hosted in other host severs
+ Same as a web application all you need is IIS or equivalent to host your service however, a Restful Web API can be hosted in other host servers
  #### Multiple Versions
  Can be running at the same time. Note multiple versions in this sense means it could be a new service with the exact same endpoints (methods) or additional overloads or methods. With this you have to take into consideration are you bug fixing for all clients or would a new method with a different outcome for a different client suffice or as a convention create a whole new service as more than one method will be changing.
 
