@@ -24,10 +24,10 @@ My knowledge base of Technical Interview Questions
  a + 's' is assigned a new reference, the reference value of the variable a now will point to the new reference, and the orignal reference is deallocatged. So it is not a case of the memory expanding but a new space allocated.
 
  For the record
- > String is the standard C# / .Net immutable string type
- StringBuilder is the standard C# / .Net mutable string type
+ > String is the standard C# / .Net immutable string type.
+ StringBuilder is the standard C# / .Net mutable string type.
  To "effect a change" on a string represented as a C# String, you actually create a new String object. The original String is not changed ... because it is unchangeable.
- In most cases it is better to use String because it is easier reason about them; e.g. you don't need to consider the possibility that some other thread might "change my string". However, when you need to construct or modify a string using a sequence of operations, it may be more efficient to use a StringBuilder.
+ In most cases it is better to use String because it is easier; e.g. you don't need to consider the possibility that some other thread might "change my string". However, when you need to construct or modify a string using a sequence of operations, it may be more efficient to use a StringBuilder.
 4. Are strings stored on the Heap or the Stack
 
  Both
