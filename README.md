@@ -50,7 +50,7 @@ My knowledge base of Technical Interview Questions
 
 4. Javascript handling of errors say in an ajax call?
 
- There is no specific event client side so you have to handle your exceptions potentially in every function however returning code from the server in say a jquery ajax call you can make use of callback event handler to notify the user and in angularJS you can use the $exceptionHandler service however the exception to the rule is in event listeners you will require a direct call e.g. 
+ There is no specific event client side so you have to handle your exceptions potentially in every function however returning code from the server in say a jquery ajax call you can make use of callback onerror event handler to notify the user and in angularJS you can use the $exceptionHandler service however the exception to the rule is in event listeners you will require a direct call e.g. 
  `try { ... } catch (e) { $exceptionHandler(e); }`.
 
 ### Web Services
