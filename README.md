@@ -73,6 +73,16 @@ My knowledge base of Technical Interview Questions
  ```
  
  Now obviously, depending on how many images you have, and how big they are, that can take a while. The ready event actually allows us to operate on the page much earlier than the load event does.
+2. Basic Selectors
+
+ | This selector... | ...selects this content | Example |
+ | --- | --- | --- |
+ | $("tagName") | All tagName elements | All paragraphs <=> $("p") |
+ | $("#identifier") | The element with the id attribute of *car* | element with id *car* <=> $("#content") |
+ | $(".className") | All elements that have class className | All .fancy class elements <=> $(".fancy") |
+ | $("tag.className") | Tag elements that have className | All fancy paragraphs <=> $("p.fancy") |
+ | $("tag#id.className") | Tag element with id of *id* and class *className* | only fancy paragrah with id="car" <=> $("p#car.fancy") |
+ | $("*") | All elements in the page |  |
 
 ### Web Services
 1. What is a web service?
