@@ -53,6 +53,27 @@ My knowledge base of Technical Interview Questions
  There is no specific event client side so you have to handle your exceptions potentially in every function however returning code from the server in say a jquery ajax call you can make use of callback onerror event handler to notify the user and in angularJS you can use the $exceptionHandler service however the exception to the rule is in event listeners you will require a direct call e.g. 
  `try { ... } catch (e) { $exceptionHandler(e); }`.
 
+### jQuery
+1. How do you call jQuery and at what stage in the page life cycle is it called?
+
+ You make a call to the document ready function which is typically declared in your head section of your html page as follows
+ ```html
+...
+<head>
+...
+<script>
+    $("document").ready(function() {
+        <!-- Do something on page load -->
+		
+    })
+</script>
+...
+</head>
+...
+ ```
+ 
+ Now obviously, depending on how many images you have, and how big they are, that can take a while. The ready event actually allows us to operate on the page much earlier than the load event does.
+
 ### Web Services
 1. What is a web service?
  * Is the server part of a client/server application, application component for communication.
