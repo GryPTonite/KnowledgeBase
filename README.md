@@ -100,7 +100,51 @@ My knowledge base of Technical Interview Questions
  | This selector... | ...selects this content | Example |
  | --- | --- | --- |
  | | | |
+ 
+### AngularJS
 
+1. 2 levels of bullet points, grouping on data
+
+ Example of loading array object data with one level of grouping, requires angular-filter module which you can include as a script (see below)
+ 
+ ```HTML
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.15/angular-filter.js"></script>
+<script>
+angular.module('app',['angular.filter'])
+  .controller('MainController', function($scope) { 
+    $scope.orders = [
+    	{id:1, JobNo:'123', OrderNo:'123.1.A'},
+        {id:2, JobNo:'456', OrderNo:'456.1.A'},
+        {id:3, JobNo:'123', OrderNo:'123.2.A'}
+    ]
+ });
+ </script>
+<body>
+<div ng-app="app" ng-controller="MainController">
+  <p>Looping with ng-repeat:</p>
+  
+    <ul ng-repeat="(jobNo, orders) in orders | groupBy: 'JobNo'">
+ 		<li>Job: {{ jobNo }}</li>
+        <ul ng-repeat="order in orders">
+        	<li><a href="/orders/order/{{order.id}}">order: {{ order.OrderNo }}</a></li>
+        </ul>
+	</ul>
+</div>
+
+</body>
+</html>
+ ```
+ 
+ Which produces the following display (note to the developer default markdown style of bullets maybe different compared to HTML)\:
+ - Job: 123
+    - [Order: 123.1.A](http://example.com/orders/order/1)
+    - [Order: 123.2.A](http://example.com/orders/order/3)
+ - Job: 456
+    - [Order: 456.1.A](http://example.com/orders/order/2)
+ 
 ### Web Services
 1. What is a web service?
  * Is the server part of a client/server application, application component for communication.
