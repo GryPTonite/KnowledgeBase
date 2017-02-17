@@ -32,7 +32,6 @@ My knowledge base of Technical Interview Questions
 
  Both
  > One might jump to the conclusion even though a string is consider a reference type it is allocated on the heap. In general can you assume the heap contains reference values and the stack contains value references - perhaps most of the time. For the sake of the string variable can we not assume a string acts as if it is a value type, well this is indeed true for efficiencies sake. In particualar there is no harm allocating a string on the stack with other integer and real values in a calling method however, consider a string field of a class, the class would be a reference better servered on the heap. The real truth is the run time code is going to use the mose effecient optimized means to allocate variables so it may depend on the size of the application, you can generalise however do not always assume
- 
 
 ### ASP.NET, MVC, Testing
 1. How to Handle a MVC multi user site scenario where one page retrieves its data (View page) from say a staging table (Flat file table that say is a join of a master table and foreign key tables) for fast retrieval and another page may be used for updating the underling data (Edit page) the staging table is based on, so how do you keep the staging table synchronised in the most efficient way?
@@ -73,6 +72,7 @@ My knowledge base of Technical Interview Questions
  ```
  
  Now obviously, depending on how many images you have, and how big they are, that can take a while. The ready event actually allows us to operate on the page much earlier than the load event does.
+ 
 2. Basic Selectors
 
  | This selector... | ...selects this content | Example |
@@ -82,7 +82,24 @@ My knowledge base of Technical Interview Questions
  | $(".className") | All elements that have class className | All .fancy class elements <=> $(".fancy") |
  | $("tag.className") | Tag elements that have className | All fancy paragraphs <=> $("p.fancy") |
  | $("tag#id.className") | Tag element with id of *id* and class *className* | only fancy paragrah with id="car" <=> $("p#car.fancy") |
- | $("*") | All elements in the page |  |
+ | $("\*") | All elements in the page |  |
+ 
+3. More selectors
+
+ | This selector... | ...selects this content | Example |
+ | --- | --- | --- |
+ | \:first, \:last | First or last of the given selector type | First paragraph <=> $("p\:first") |
+ | \:even, \:odd | Only even or odd items in the matched set | Even paragraphs <=> $("p\:even") |
+ | \:gt(), \:lt(), \:eq() | Items greater than, less than or equal to an index | First 5 paragraphs <=> $("p\:lt(6)") |
+ | \:animated | Items that are in the process of being animated | animate div tags $("div").animate({left: '250px', up: '100px'}, 'slow\|fast\|*milliseconds*', callbackfunc()); |
+ | \:focus | The element that currently has the focus | $(":focus") |
+ | \:not(expr) | Elements that don't match the given expression | (NB: index's start at 0) Not paragraph index 2 <=> $("p:not(p:eq(2))") |
+ 
+4. Even more advanced selectors
+
+ | This selector... | ...selects this content | Example |
+ | --- | --- | --- |
+ | | | |
 
 ### Web Services
 1. What is a web service?
